@@ -8,6 +8,11 @@ class App:
         self.fenetre.title("Monitoring système")
         self.fenetre.resizable(False, False)
 
+        self.fenetre_cpu_grand = tk.Toplevel(self.fenetre)
+        self.fenetre_cpu_grand.title("CPU")
+        self.label_cpu_grand = tk.Label(self.fenetre_cpu_grand, text="0%", font=("Arial", 48, "bold"))
+        self.label_cpu_grand.pack(padx=20, pady=20)
+
 
         # --- CPU ---
         self.frame_cpu = tk.LabelFrame(self.fenetre, text="CPU", padx=10, pady=10)
@@ -35,7 +40,7 @@ class App:
         self.label_disque.pack()
         self.canvas_disque = tk.Canvas(self.frame_disque, width=300, height=20, bg="white")
         self.canvas_disque.pack()
-
+        
         self.rafraichir()
         self.fenetre.mainloop()
 
@@ -61,6 +66,9 @@ class App:
         else:
             self.alertes_80.config(text="")
 
+
+        self.label_cpu_grand.config(text=f"{cpu:.1f}%")
+        
         # Mettre à jour RAM
         self.label_ram.config(text=f"{ram:.1f}%")
         self.canvas_ram.delete("all")
