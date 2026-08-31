@@ -2,17 +2,12 @@ import tkinter as tk
 from datetime import datetime
 import psutil
 
-
 class App:
     def __init__(self):
         self.fenetre = tk.Tk()
         self.fenetre.title("Monitoring système")
         self.fenetre.resizable(False, False)
 
-        self.fenetre_cpu = tk.Toplevel(self.fenetre)
-        self.fenetre_cpu.title("Monitoring CPU")
-        self.label_cpu_grand = tk.Label(self.fenetre_cpu, text="0%", font=("Arial", 72, "bold"))
-        self.label_cpu_grand.pack(padx=20, pady=20)
 
         # --- CPU ---
         self.frame_cpu = tk.LabelFrame(self.fenetre, text="CPU", padx=10, pady=10)
@@ -22,8 +17,7 @@ class App:
         self.canvas_cpu = tk.Canvas(self.frame_cpu, width=300, height=20, bg="white")
         self.canvas_cpu.pack()
 
-        self.label_80_cpu = tk.Label(self.frame_cpu, text="Avertissement 80 %!", fg="red", font=("Arial", 12, "bold"))
-        self.label_80_cpu.pack()
+
 
         # --- RAM ---
         self.frame_ram = tk.LabelFrame(self.fenetre, text="RAM", padx=10, pady=10)
@@ -61,13 +55,6 @@ class App:
         else:
             couleur_cpu = "red"
 
-        if cpu >= 80:
-            self.label_80_cpu.config(text="Avertissement 80 %!", fg="red")
-        else:
-            self.label_80_cpu.config(text="", fg="black")
-        self.canvas_cpu.create_rectangle(0, 0, largeur_cpu, 20, fill=couleur_cpu, outline="")
-
-        self.label_cpu_grand.config(text=f"{cpu:.1f}%")
 
         # Mettre à jour RAM
         self.label_ram.config(text=f"{ram:.1f}%")
