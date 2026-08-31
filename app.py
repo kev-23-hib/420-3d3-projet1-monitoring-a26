@@ -17,7 +17,8 @@ class App:
         self.canvas_cpu = tk.Canvas(self.frame_cpu, width=300, height=20, bg="white")
         self.canvas_cpu.pack()
 
-
+        self.alertes_80 = tk.Label(self.frame_cpu, text="⚠️ Alerte: CPU > 80%", font=("Arial", 12), fg="red")
+        self.alertes_80.pack()
 
         # --- RAM ---
         self.frame_ram = tk.LabelFrame(self.fenetre, text="RAM", padx=10, pady=10)
@@ -55,6 +56,10 @@ class App:
         else:
             couleur_cpu = "red"
 
+        if cpu >= 80:
+            self.alertes_80.config(text="⚠️ Alerte: CPU > 80%")
+        else:
+            self.alertes_80.config(text="")
 
         # Mettre à jour RAM
         self.label_ram.config(text=f"{ram:.1f}%")
