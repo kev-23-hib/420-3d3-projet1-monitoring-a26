@@ -43,7 +43,7 @@ class App:
 
 
         #btn log
-        self.btn_log = tk.Button(self.fenetre, text="desactiver le log", command=self.toggle_log())
+        self.btn_log = tk.Button(self.fenetre, text="desactiver le log", command=self.toggle_log)
         self.btn_log.pack(pady=10)
         self.log_active = True
 
@@ -122,9 +122,17 @@ class App:
         if self.log_active:
             with open("monitoring.log", 'a') as f:
                 f.write(ligne)
+        print(ligne.strip())  # Affiche la ligne dans la console
 
         self.fenetre.after(2000, self.rafraichir)
+        
 
+    def toggle_log(self):
+        self.log_active = not self.log_active
+        if self.log_active:
+            self.btn_log.config(text="desactiver le log")
+        else:
+            self.btn_log.config(text="activer le log")
 
 if __name__ == "__main__":
     app = App()
