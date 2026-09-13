@@ -1,8 +1,8 @@
 import tkinter as tk
 from models.metrics import MetriquesSysteme
 from observers.cpu_display import AffichageCPU
-from observers.ram_display import AffichageRAM
-from observers.disk_display import AffichageDisque
+from observers.ram_display import Affichageram
+from observers.disk_display import Affichagedisk
 from observers.logger import LoggerFichier
  
 class Dashboard(tk.Tk):
@@ -15,19 +15,26 @@ class Dashboard(tk.Tk):
         self._metriques = metriques
  
         # À compléter :
-        # 1. Créez les observateurs (AffichageCPU, AffichageRAM,
-        #    AffichageDisque, LoggerFichier)
-        # 2. Abonnez-les tous au sujet
-        # 3. Démarrez le rafraîchissement
+        self._creer_observateurs()
+        self._abonner_observateurs()
+        self._rafraichir()
+       
  
     def _creer_observateurs(self) -> None:
+        self.cpu = AffichageCPU(self)
+        self.ram = Affichageram(self)
+        self.disk = Affichagedisk(self)
+        self.logger = LoggerFichier()
 
         
  
     def _abonner_observateurs(self) -> None:
-        # À compléter
+        self._metriques.abonner(self.cpu)
+        self._metriques.abonner(self.ram)
+        self._metriques.abonner(self.disk)
+        self._metriques.abonner(self.logger)
  
     def _rafraichir(self) -> None:
         # À compléter :
-        # Appelez actualiser_metriques() sur les métriques
-        # Planifiez le prochain appel avec self.after()
+        self._metriques.actualiser_metriques()
+        self.after(self.INTERVALLE_MS, self._rafraichir)

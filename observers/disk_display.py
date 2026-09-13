@@ -15,7 +15,7 @@ class Affichagedisk(Observateur):
     def actualiser(self, sujet) -> None:
         donnees = sujet.get_donnees()
         disque = donnees.get("disque", 0)
-        self.label_cpu.config(text=f"{disque:.1f}%")
+        self.label_disque.config(text=f"{disque:.1f}%")
         self._dessiner_barre(disque)
 
     def _dessiner_barre(self, valeur: float) -> None:

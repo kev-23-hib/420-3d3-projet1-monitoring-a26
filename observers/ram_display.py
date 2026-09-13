@@ -15,7 +15,7 @@ class Affichageram(Observateur):
     def actualiser(self, sujet) -> None:
         donnees = sujet.get_donnees()
         ram = donnees.get("ram", 0)
-        self.label_cpu.config(text=f"{ram:.1f}%")
+        self.label_ram.config(text=f"{ram:.1f}%")
         self._dessiner_barre(ram)
 
     def _dessiner_barre(self, valeur: float) -> None:
